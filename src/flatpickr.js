@@ -415,11 +415,12 @@ function Flatpickr(element, config) {
 				dayElement.classList.add("selected");
 
 				if (self.config.mode === "range") {
-					dayElement.classList.add(
-						compareDates(date, self.selectedDates[0]) === 0
-							? "startRange"
-							: "endRange"
-						);
+					if (compareDates(date, self.selectedDates[0]) === 0) {
+						dayElement.classList.add("startRange");
+					}
+					if (compareDates(date, self.selectedDates[1]) === 0) {
+						dayElement.classList.add("endRange");
+					}
 				}
 
 				else
@@ -1310,6 +1311,9 @@ function Flatpickr(element, config) {
 
 	function set(option, value) {
 		self.config[option] = value;
+		if (option === 'locale') {
+			setupLocale();
+		}
 		self.redraw();
 		jumpToDate();
 	}
